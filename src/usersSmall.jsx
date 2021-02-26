@@ -1,22 +1,25 @@
 import React from "react";
+import state from "./state";
 
 function UsersSmall(props) {
-  // let contentBody = props.state.users.map((value) => {
-  //   return <div>{value.name}</div>;
-  // });
-  console.log(props.user);
+  let [visitTime, setVisitTime] = React.useState(state.lastVisit);
+  function onUserClick() {
+    let date = new Date();
+    setVisitTime(
+      date.getHours() + " : " + date.getMinutes() + " : " + date.getSeconds()
+    );
+  }
   return (
-    <div className="usersSmall">
+    <div className="usersSmall" onClick={onUserClick}>
       <div className="userImage">
         <img src="userImage.png" alt="" />
       </div>
       <div>
-        <div>
-          {props.user.name} {props.user.sName}
-        </div>
-
-        <div>Age: {props.user.age}</div>
-        <div>City: {props.user.city}</div>
+        <div>{props.user.name}</div>
+        <div>{props.user.username}</div>
+        <div>Id: {props.user.id}</div>
+        <div>Email: {props.user?.email}</div>
+        <div>Last Visit: {visitTime}</div>
       </div>
     </div>
   );
