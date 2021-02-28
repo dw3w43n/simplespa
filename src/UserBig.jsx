@@ -1,5 +1,5 @@
-import React from "react";
-import state from "./state";
+import React, { useContext } from "react";
+import { Context } from "./context";
 
 let styles = {
   span: {
@@ -9,7 +9,13 @@ let styles = {
 };
 
 function UsersBig(props) {
-  let [visitTime, setVisitTime] = React.useState(state.lastVisit);
+  const { handleZoom, handleUnZoom } = useContext(Context);
+  let [visitTime, setVisitTime] = React.useState("many years ago");
+
+  const classes = ["usersBig"];
+  if (props.user.isZoomed) classes.push("zoomed");
+  console.log(props.user.id + " " + classes);
+
   function onUserClick() {
     let date = new Date();
     setVisitTime(
@@ -20,12 +26,21 @@ function UsersBig(props) {
         ("0" + date.getSeconds()).slice(-2)
     );
   }
+
   return (
-    <div className="usersBig" onClick={onUserClick}>
+    <div className={classes.join(" ")} onClick={onUserClick}>
       <div className="userImage">
         <img src="userImage.png" alt="" />
       </div>
       <div>
+        <div className="uZm">
+          <button
+            onClick={() => handleUnZoom(props.user.id)}
+            className="zoomButton"
+          >
+            &times;
+          </button>
+        </div>
         <div> {props.user.name} </div>
         <div>{props.user.username}</div>
         <div>
@@ -55,8 +70,13 @@ function UsersBig(props) {
         <div>
           <span style={styles.span}>Last visit:</span> {visitTime}
         </div>
-        <div>
-          <button className="zoomButton">Zoom</button>
+        <div className="zm">
+          <button
+            onClick={() => handleZoom(props.user.id)}
+            className="zoomButton"
+          >
+            Zoom
+          </button>
         </div>
       </div>
     </div>

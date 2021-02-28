@@ -7,7 +7,7 @@ function Header() {
   );
 
   function onSearchInputChange(event) {
-    setSearchInputValue((prev) => (prev = event.target.value));
+    setSearchInputValue(() => event.target.value);
   }
 
   function toNullifySearchInputValue() {

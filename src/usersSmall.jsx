@@ -1,14 +1,23 @@
 import React from "react";
-import state from "./state";
+import { useContext } from "react";
+import { Context } from "./context";
 
 function UsersSmall(props) {
-  let [visitTime, setVisitTime] = React.useState(state.lastVisit);
+  const { handleZoom } = useContext(Context);
+  // test();
+
+  let [visitTime, setVisitTime] = React.useState("many years ago");
   function onUserClick() {
     let date = new Date();
     setVisitTime(
-      date.getHours() + " : " + date.getMinutes() + " : " + date.getSeconds()
+      ("0" + date.getHours()).slice(-2) +
+        " : " +
+        ("0" + date.getMinutes()).slice(-2) +
+        " : " +
+        ("0" + date.getSeconds()).slice(-2)
     );
   }
+
   return (
     <div className="usersSmall" onClick={onUserClick}>
       <div className="userImage">

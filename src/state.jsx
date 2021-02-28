@@ -13,26 +13,6 @@ let state = {
     { id: 11, name: "Marques", username: "Hayes" },
     { id: 12, name: "Sabrina", username: "Kuhlman" },
   ],
-
-  _view: "small",
-  get view() {
-    return this._view;
-  },
-  set view(value) {
-    if (value === "small" || value === "big") this._view = value;
-  },
-
-  sortBy: "name",
-
-  searchInputValue: "",
-
-  lastVisit: "many years ago",
 };
-
-export function changeViewInLocalStorage() {
-  let contentView = localStorage.getItem("contentView") ?? "small";
-  contentView = contentView === "small" ? "big" : "small";
-  localStorage.setItem("contentView", contentView);
-}
 
 export default state;
